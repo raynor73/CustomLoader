@@ -5,6 +5,6 @@ package ru.ilapin.customloader;
  */
 public class DataEntry {
 
-    public long id;
-    public String label;
+	public long id;
+	public String label;
 }
