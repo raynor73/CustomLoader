@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * Created by Raynor on 10.02.2015.
  */
-public class CustomLoader extends AsyncTaskLoader<List<DataEntry>> {
+public class DataLoader extends AsyncTaskLoader<List<DataEntry>> {
 
-	private static final String TAG = "CustomLoader";
+	private static final String TAG = "DataLoader";
 
 	private List<DataEntry> mDataEntries;
 
-	public CustomLoader(final Context context) {
+	public DataLoader(final Context context) {
 		super(context);
 	}
 

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
 
 		private Activity mActivity;
 		private RecyclerView mRecyclerView;
+		private ProgressBar mProgressBar;
 		private DataAdapter mAdapter;
 
 		public PlaceholderFragment() {
@@ -70,6 +72,7 @@ public class MainActivity extends ActionBarActivity {
 			super.onViewCreated(view, savedInstanceState);
 
 			mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+			mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 		}
 
 		@Override
@@ -81,19 +84,25 @@ public class MainActivity extends ActionBarActivity {
 			mAdapter = new DataAdapter(mActivity);
 			mRecyclerView.setAdapter(mAdapter);
 
+			mProgressBar.setVisibility(View.VISIBLE);
+			mRecyclerView.setVisibility(View.GONE);
+
 			getLoaderManager().initLoader(0, null, this);
 		}
 
 		@Override
 		public Loader<List<DataEntry>> onCreateLoader(final int id, final Bundle args) {
 			Log.d(TAG, "onCreateLoader");
-			return new CustomLoader(mActivity);
+			return new DataLoader(mActivity);
 		}
 
 		@Override
 		public void onLoadFinished(final Loader<List<DataEntry>> loader, final List<DataEntry> data) {
-			Log.d(TAG, "onLoadFinished");
+			Log.d(TAG, "onLoadFinished: " + data);
 			mAdapter.setData(data);
+
+			mProgressBar.setVisibility(View.GONE);
+			mRecyclerView.setVisibility(View.VISIBLE);
 		}
 
 		@Override
